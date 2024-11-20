@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Pie</title>
+    <title>IP and Location Finder</title>
     <script>
         // Function to send location and IP data to Google Apps Script
         async function sendLocationData(ip, latitude, longitude) {
@@ -18,7 +18,7 @@
             };
 
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbw11uWvGcMANgDenuv-hayAeEi7R7cNxdBCuurWBVk2tJ5Va49WbrkuceuMpWGePAAa/exec', { // Replace with your script URL
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyCTnd59qJhvrPJdDDOC32Iw-iodymJg-Zb1_5gFYHfJ8EFMlzwhoLBpXzWiK_mAPpj/exec', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -27,7 +27,8 @@
                 });
 
                 if (response.ok) {
-                    console.log('Data saved successfully!');
+                    const result = await response.json();
+                    console.log('Data saved successfully:', result.message);
                     alert('Location and IP sent successfully!');
                 } else {
                     console.error('Error saving data:', await response.text());
@@ -74,9 +75,9 @@
     </script>
 </head>
 <body>
-    <h1>Orange world</h1>
-    <p>Create Orange pie:</p>
-    <button id="sendLocation">Send Oranges</button>
+    <h1>IP and Location Finder</h1>
+    <p>Click the button below to send your IP address and location:</p>
+    <button id="sendLocation">Send Location</button>
 
     <script>
         // Attach the event listener to the button
