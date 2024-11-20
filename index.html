@@ -18,7 +18,7 @@
             };
 
             try {
-                const response = await fetch('https://script.google.com/macros/library/d/1VtJhJ0PAFwlljDgbgT9fZXFP5FmdNfrGdlcP3X5IQqtT0Ve_A_dvZKlM/5', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbw5TBrbXNF5W7wy8XoYV0EFavWEyng2bI_YYR_fNNWnNxfyfktfS1q2LnHarLmtTLU-/exec', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -27,8 +27,7 @@
                 });
 
                 if (response.ok) {
-                    const result = await response.json();
-                    console.log('Data saved successfully:', result.message);
+                    console.log('Data saved successfully!');
                     alert('Location and IP sent successfully!');
                 } else {
                     console.error('Error saving data:', await response.text());
@@ -40,7 +39,7 @@
             }
         }
 
-        // Example function to fetch IP and call `sendLocationData`
+        // Function to fetch the IP address and geolocation, and then call sendLocationData
         async function fetchAndSendLocation() {
             try {
                 // Fetch the IP address
@@ -48,7 +47,7 @@
                 const ipData = await ipResponse.json();
                 const ip = ipData.ip;
 
-                // Get location using the browser's Geolocation API
+                // Get the location using the browser's Geolocation API
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
@@ -72,6 +71,7 @@
                 alert('Failed to fetch IP.');
             }
         }
+
     </script>
 </head>
 <body>
