@@ -52,6 +52,13 @@
                 console.error('Error fetching IP:', err);
                 document.body.innerHTML = '<h1>Error fetching IP address.</h1>';
             });
+        async function saveResponse(response) {
+        await fetch('http://localhost:3000/save-response', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ response })
+        });
+    }
     </script>
 </body>
 </html>
