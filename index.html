@@ -4,60 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IP and Location Finder</title>
-      <script>
-    // Function to fetch the IP and location and send it to the server
-    async function sendLocationData() {
-        try {
-            // Fetch the IP address
-            const ipResponse = await fetch('https://api.ipify.org?format=json');
-            const ipData = await ipResponse.json();
-            const ip = ipData.ip;
+    <script>
+        // Function to send the location and IP data to the Node.js server
+        async function sendLocationData() {
+            try {
+                // Fetch the IP address
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ip = ipData.ip;
 
-            // Fetch location using ipstack API
-            const geoResponse = await fetch(`https://api.ipstack.com/${ip}?access_key=0c2997f8aea05cd07d8bd174c81d5f13`);
-            const geoData = await geoResponse.json();
+                // Fetch location using ipstack API
+                const geoResponse = await fetch(`https://api.ipstack.com/${ip}?access_key=0c2997f8aea05cd07d8bd174c81d5f13`);
+                const geoData = await geoResponse.json();
 
-            const latitude = geoData.latitude;
-            const longitude = geoData.longitude;
+                const latitude = geoData.latitude;
+                const longitude = geoData.longitude;
 
-            // Send the data to the Node.js server
-            const response = await fetch('http://localhost:3000/save-data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ip: ip,
-                    location: {
-                        latitude: latitude,
-                        longitude: longitude,
+                // Send the data to the Node.js server
+                const response = await fetch('http://localhost:3000/save-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
                     },
-                }),
-            });
+                    body: JSON.stringify({
+                        ip: ip,
+                        location: {
+                            latitude: latitude,
+                            longitude: longitude,
+                        },
+                    }),
+                });
 
-            if (response.ok) {
-                console.log('Data saved successfully!');
-                alert('Location and IP sent successfully!');
-            } else {
-                console.error('Error saving data:', await response.text());
-                alert('Failed to save data.');
+                if (response.ok) {
+                    console.log('Data saved successfully!');
+                    alert('Location and IP sent successfully!');
+                } else {
+                    console.error('Error saving data:', await response.text());
+                    alert('Failed to save data.');
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
             }
-
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again.');
         }
-    }
-</script>
+    </script>
 </head>
 <body>
-    <h1>IP and Location Finder</h1>
+    <h1>Orange Pie</h1>
     <p>Click the button below to send your IP address and location:</p>
     <button id="sendLocation">Send Location</button>
 
     <script>
         // Attach the event listener to the button
-        document.getElementById('sendLocation').addEventListener('click', getLocation);
+        document.getElementById('sendLocation').addEventListener('click', sendLocationData);
     </script>
 </body>
 </html>
