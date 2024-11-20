@@ -1,63 +1,86 @@
-// Function to send location and IP data to Google Apps Script
-async function sendLocationData(ip, latitude, longitude) {
-    const timestamp = new Date().toISOString(); // Get the current timestamp
-    const data = {
-        ip: ip,
-        location: {
-            latitude: latitude,
-            longitude: longitude,
-        },
-        timestamp: timestamp,
-    };
-
-    try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbw11uWvGcMANgDenuv-hayAeEi7R7cNxdBCuurWBVk2tJ5Va49WbrkuceuMpWGePAAa/exec', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (response.ok) {
-            console.log('Data saved successfully!');
-        } else {
-            console.error('Error saving data:', await response.text());
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// Example function to fetch IP and call `sendLocationData`
-async function fetchAndSendLocation() {
-    try {
-        // Fetch the IP address (replace with your IP-fetching service if needed)
-        const ipResponse = await fetch('https://api.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        const ip = ipData.ip;
-
-        // Get location using the browser's Geolocation API
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-
-                    // Send data to Google Apps Script
-                    sendLocationData(ip, latitude, longitude);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP and Location Finder</title>
+    <script>
+        // Function to send location and IP data to Google Apps Script
+        async function sendLocationData(ip, latitude, longitude) {
+            const timestamp = new Date().toISOString(); // Get the current timestamp
+            const data = {
+                ip: ip,
+                location: {
+                    latitude: latitude,
+                    longitude: longitude,
                 },
-                (error) => {
-                    console.error('Error getting location:', error);
-                }
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
-    } catch (error) {
-        console.error('Error fetching IP:', error);
-    }
-}
+                timestamp: timestamp,
+            };
 
-// Call the function when the page loads or on a button click
-document.getElementById('sendLocation').addEventListener('click', fetchAndSendLocation);
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbw11uWvGcMANgDenuv-hayAeEi7R7cNxdBCuurWBVk2tJ5Va49WbrkuceuMpWGePAAa/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    console.log('Data saved successfully!');
+                    alert('Location and IP sent successfully!');
+                } else {
+                    console.error('Error saving data:', await response.text());
+                    alert('Failed to save data.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Check the console for details.');
+            }
+        }
+
+        // Example function to fetch IP and call `sendLocationData`
+        async function fetchAndSendLocation() {
+            try {
+                // Fetch the IP address
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ip = ipData.ip;
+
+                // Get location using the browser's Geolocation API
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+
+                            // Send data to Google Apps Script
+                            sendLocationData(ip, latitude, longitude);
+                        },
+                        (error) => {
+                            console.error('Error getting location:', error);
+                            alert('Failed to retrieve location.');
+                        }
+                    );
+                } else {
+                    console.error('Geolocation is not supported by this browser.');
+                    alert('Geolocation not supported.');
+                }
+            } catch (error) {
+                console.error('Error fetching IP:', error);
+                alert('Failed to fetch IP.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>IP and Location Finder</h1>
+    <p>Click the button below to send your IP address and location:</p>
+    <button id="sendLocation">Send Location</button>
+
+    <script>
+        // Attach the event listener to the button
+        document.getElementById('sendLocation').addEventListener('click', fetchAndSendLocation);
+    </script>
+</body>
+</html>
