@@ -39,39 +39,54 @@
             }
         }
 
-        // Function to fetch the IP address and geolocation, and then call sendLocationData
-        async function fetchAndSendLocation() {
+        // Function to get the user's IP-based location
+        async function getLocationByIP() {
             try {
                 // Fetch the IP address
                 const ipResponse = await fetch('https://api.ipify.org?format=json');
                 const ipData = await ipResponse.json();
                 const ip = ipData.ip;
 
-                // Get the location using the browser's Geolocation API
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const latitude = position.coords.latitude;
-                            const longitude = position.coords.longitude;
+                // Use IP Geolocation API to get location based on IP
+                const geoResponse = await fetch(`https://api.ipstack.com/${ip}?access_key=0c2997f8aea05cd07d8bd174c81d5f13`);
+                const geoData = await geoResponse.json();
 
-                            // Send data to Google Apps Script
-                            sendLocationData(ip, latitude, longitude);
-                        },
-                        (error) => {
-                            console.error('Error getting location:', error);
-                            alert('Failed to retrieve location.');
-                        }
-                    );
-                } else {
-                    console.error('Geolocation is not supported by this browser.');
-                    alert('Geolocation not supported.');
-                }
+                const latitude = geoData.latitude;
+                const longitude = geoData.longitude;
+
+                // Send the data to Google Apps Script
+                sendLocationData(ip, latitude, longitude);
             } catch (error) {
-                console.error('Error fetching IP:', error);
-                alert('Failed to fetch IP.');
+                console.error('Error fetching location by IP:', error);
+                alert('Failed to fetch IP or geolocation.');
             }
         }
 
+        // Function to get the user's geolocation using the Geolocation API (if allowed)
+        async function getLocation() {
+            try {
+                // Try to get the location using the Geolocation API
+                const position = await new Promise((resolve, reject) => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(resolve, reject);
+                    } else {
+                        reject("Geolocation not supported");
+                    }
+                });
+
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Now send the location data to Google Apps Script
+                sendLocationData(null, latitude, longitude);
+            } catch (error) {
+                console.error('Error getting geolocation:', error);
+                alert('Geolocation access denied or failed. Falling back to IP location.');
+
+                // If geolocation fails, fall back to IP geolocation
+                getLocationByIP();
+            }
+        }
     </script>
 </head>
 <body>
@@ -81,7 +96,7 @@
 
     <script>
         // Attach the event listener to the button
-        document.getElementById('sendLocation').addEventListener('click', fetchAndSendLocation);
+        document.getElementById('sendLocation').addEventListener('click', getLocation);
     </script>
 </body>
 </html>
