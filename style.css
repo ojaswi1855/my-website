@@ -1,27 +1,142 @@
-/* Basic reset for body */
+/* Global reset */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Trebuchet MS', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: rgb(207, 94, 2); /* Stunning orange color */
+    padding: 5px 30px; /* Reduced padding to make it thinner */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Light border for definition */
+}
+
+.nav-logo {
+    font-size: 26px; /* Larger logo font size */
+    color: white; /* Contrast logo color */
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-logo img {
+    height: 40px; /* Adjust the height of the logo image */
+    margin-right: 10px; /* Space between the logo image and the text */
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+}
+
+.nav-menu li {
+    margin-left: 20px;
+}
+
+.nav-menu a {
+    color: white; /* White text for links */
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: #FFD700; /* Gold color on hover for stunning effect */
+}
+
+/* Responsive behavior for mobile and tablet */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 5px 20px;
+    }
+
+    .nav-logo {
+        font-size: 22px;
+    }
+
+    .nav-menu {
+        display: none; /* Hides menu on small screens */
+    }
+}
+
+/* Fix the space issue below the navbar */
+body {
+    margin-top: 60px; /* Adjust this to match the height of your navbar */
+}
+
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.nav-menu li {
+    margin-right: 20px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Home Section Styling with Custom Background */
+.home {
+    background-image: url('bg.jpg'); /* Your custom background */
+    background-size: cover; /* Cover the entire page */
+    background-position: center center; /* Center the background image */
+    background-attachment: fixed; /* Keeps the background fixed in place */
+    height: 100vh; /* Full height of the viewport */
+    width: 100%; /* Full width of the screen */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
     flex-direction: column;
-    background-image: url('bg.jpg'); /* Replace with your actual image path */
-    background-size: cover; /* Ensure the image covers the screen */
-    background-position: center center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
+    color: white;
+    text-align: center;
+    margin: 0;
 }
 
-/* Ensure that the body fills the screen even on mobile */
-html, body {
-    height: 100%;
-    margin: 0;
+.home-container {
+    max-width: 600px; /* Limit the width of the content */
+    width: 90%; /* Make content responsive, with a 90% width on smaller screens */
+    margin: 0 auto;
 }
+
+/* Ensuring the background image scales well on different screen sizes */
+@media (max-width: 1024px) {
+    .home {
+        background-attachment: scroll; /* Disable fixed background on tablet and smaller devices */
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        width: 95%; /* Make content more flexible on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .home-container {
+        width: 100%; /* Allow full width on very small screens */
+    }
+}
+
 
 /* Button Styles */
 .cute-button {
-    background-color: #FF7F50; /* Coral Orange */
+    background-color: #FF7F50;
     color: white;
     padding: 15px 30px;
     font-size: 16px;
@@ -32,33 +147,111 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 1px;
     margin-top: 20px;
 }
 
-/* Button hover effect */
 .cute-button:hover {
-    background-color: #FF6347; /* Tomato orange */
+    background-color: #FF6347;
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Button active effect */
 .cute-button:active {
     transform: scale(1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Button focus effect */
-.cute-button:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 99, 71, 0.8);
+/* Animation Container for Emojis */
+.animation-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 9999;
 }
 
-/* Responsive styles for smaller screens */
-@media (max-width: 600px) {
-    .cute-button {
-        padding: 10px 20px;
-        font-size: 14px;
+.emoji {
+    position: absolute;
+    font-size: 2rem;
+    animation: floatUp 3s ease-in-out forwards;
+    opacity: 0;
+    transform: translateY(0);
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(0.7);
+    }
+}
+
+
+
+/* Basic styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.cute-button {
+    background-color: #FF7F50;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Button Hover */
+.cute-button:hover {
+    background-color: #FF6347;
+}
+
+/* Emoji animation container */
+.animation-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Prevent interaction with emojis */
+    z-index: 9999;
+}
+
+/* Emoji styles */
+.emoji {
+    position: absolute;
+    font-size: 2rem; /* Size of the emoji */
+    animation: floatUp 2s ease-in-out forwards; /* Mid-fast speed */
+    opacity: 0;
+}
+
+/* Keyframe for emoji animation */
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-200px) scale(0.7); /* Move emojis up and reduce their size */
     }
 }
