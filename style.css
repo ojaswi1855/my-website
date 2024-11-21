@@ -1,0 +1,64 @@
+/* Basic reset for body */
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    background-image: url('bg.jpg'); /* Replace with your actual image path */
+    background-size: cover; /* Ensure the image covers the screen */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+}
+
+/* Ensure that the body fills the screen even on mobile */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Button Styles */
+.cute-button {
+    background-color: #FF7F50; /* Coral Orange */
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+/* Button hover effect */
+.cute-button:hover {
+    background-color: #FF6347; /* Tomato orange */
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Button active effect */
+.cute-button:active {
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Button focus effect */
+.cute-button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 99, 71, 0.8);
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 600px) {
+    .cute-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}

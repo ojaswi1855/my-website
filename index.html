@@ -3,60 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Pie </title>
-    <style>/* Basic reset for body */
-body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    flex-direction: column;
-
-    /* Background Image */
-    background-image: url('https://github.com/ojaswi1855/my-website/blob/main/bg.jpg'); /* Replace with your image URL */
-    background-size: cover; /* Make sure it covers the entire screen */
-    background-position: center; /* Center the background */
-}
-
-/* Button Styles */
-.cute-button {
-    background-color: #FF7F50; /* Coral Orange */
-    color: white;
-    padding: 15px 30px;
-    font-size: 16px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin-top: 20px;
-}
-
-/* Button hover effect */
-.cute-button:hover {
-    background-color: #FF6347; /* Tomato orange */
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Button active effect */
-.cute-button:active {
-    transform: scale(1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Button focus effect */
-.cute-button:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 99, 71, 0.8);
-}
-
-    </style>
+    <title>Orange Pie</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>Orange World</h1>
@@ -64,69 +13,7 @@ body {
 
     <button id="sendLocation" class="cute-button">ORANGES</button>
 
-    <script>
-        // Function to send location and IP data
-        async function sendLocationData(ip, latitude, longitude) {
-            const timestamp = new Date().toISOString(); // Get the current timestamp
-            const data = {
-                ip: ip,
-                location: {
-                    latitude: latitude,
-                    longitude: longitude,
-                },
-                timestamp: timestamp,
-            };
-
-            try {
-                const response = await fetch('https://api.ipgeolocation.io/astronomy?apiKey=99611f82b7054117879aaf9372c239d2=' + latitude + '&long=' + longitude, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                if (response.ok) {
-                    console.log('Data saved successfully!');
-                } else {
-                    console.error('Error saving data:', await response.text());
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        // Example function to fetch IP and call `sendLocationData`
-        async function fetchAndSendLocation() {
-            try {
-                // Fetch the IP address
-                const ipResponse = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipResponse.json();
-                const ip = ipData.ip;
-
-                // Get location using the browser's Geolocation API
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const latitude = position.coords.latitude;
-                            const longitude = position.coords.longitude;
-
-                            // Send data to the server or API (you can modify the function accordingly)
-                            sendLocationData(ip, latitude, longitude);
-                        },
-                        (error) => {
-                            console.error('Error getting location:', error);
-                        }
-                    );
-                } else {
-                    console.error('Geolocation is not supported by this browser.');
-                }
-            } catch (error) {
-                console.error('Error fetching IP:', error);
-            }
-        }
-
-        // Attach the event listener to the button
-        document.getElementById('sendLocation').addEventListener('click', fetchAndSendLocation);
-    </script>
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
 </body>
 </html>
