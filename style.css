@@ -7,7 +7,7 @@ body {
     height: 100vh;
     margin: 0;
     flex-direction: column;
-    background-image: url('bg.jpg'); /* Replace with your actual image path */
+    background-image: url('https://github.com/ojaswi1855/my-website/blob/main/bg.jpg'); /* Replace with your actual image path */
     background-size: cover; /* Ensure the image covers the screen */
     background-position: center center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
