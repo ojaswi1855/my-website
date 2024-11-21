@@ -1,6 +1,6 @@
 /* Global reset */
 body {
-    font-family: 'Trebuchet MS', sans-serif;
+    font-family: 'Lucida Grande', monospace ;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,7 +8,7 @@ body {
 
 /* Navbar Styles */
 .navbar {
-    background-color: rgb(207, 94, 2); /* Stunning orange color */
+    background-color: rgb(204, 88, 11); /* Stunning orange color */
     padding: 5px 30px; /* Reduced padding to make it thinner */
     position: fixed;
     width: 100%;
@@ -193,65 +193,3 @@ body {
 }
 
 
-
-/* Basic styles */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4;
-}
-
-.cute-button {
-    background-color: #FF7F50;
-    color: white;
-    padding: 15px 30px;
-    font-size: 16px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-/* Button Hover */
-.cute-button:hover {
-    background-color: #FF6347;
-}
-
-/* Emoji animation container */
-.animation-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none; /* Prevent interaction with emojis */
-    z-index: 9999;
-}
-
-/* Emoji styles */
-.emoji {
-    position: absolute;
-    font-size: 2rem; /* Size of the emoji */
-    animation: floatUp 2s ease-in-out forwards; /* Mid-fast speed */
-    opacity: 0;
-}
-
-/* Keyframe for emoji animation */
-@keyframes floatUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-200px) scale(0.7); /* Move emojis up and reduce their size */
-    }
-}
