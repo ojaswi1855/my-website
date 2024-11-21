@@ -6,10 +6,12 @@ body {
     box-sizing: border-box;
 }
 
+
 /* Navbar Styles */
+/* Navbar styles */
 .navbar {
-    background-color: rgb(204, 88, 11); /* Stunning orange color */
-    padding: 5px 30px; /* Reduced padding to make it thinner */
+    background-color: rgb(207, 94, 2); /* Stunning orange color */
+    padding: 10px 30px; /* Slim padding for a narrower height */
     position: fixed;
     width: 100%;
     top: 0;
@@ -19,7 +21,45 @@ body {
     align-items: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
     border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Light border for definition */
+    height: 60px; /* Ensure fixed height */
 }
+
+/* Home page background and content */
+.home {
+    background-image: url('bg.jpg'); /* Your custom background */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    text-align: center;
+    margin-top: 60px; /* Account for the navbar height */
+    position: relative;
+}
+
+/* Additional styling for responsiveness */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .nav-logo {
+        font-size: 22px;
+    }
+
+    .nav-menu {
+        display: none; /* Hides menu on small screens */
+    }
+
+    /* Adjust margin for home section on small screens */
+    .home {
+        margin-top: 60px; /* Account for navbar height on mobile */
+    }
+}
+
 
 .nav-logo {
     font-size: 26px; /* Larger logo font size */
@@ -133,7 +173,6 @@ body {
     }
 }
 
-
 /* Button Styles */
 .cute-button {
     background-color: #FF7F50;
@@ -192,4 +231,57 @@ body {
     }
 }
 
+/* Container for the message */
+.message-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1; /* Ensure the message is above the background image */
+}
 
+/* Message styles */
+
+
+/* Container for the message */
+.message-container {
+    position: absolute;
+    top: 40%; /* Slightly up to avoid overlapping the button */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1; /* Ensure the message is above the background image */
+    width: 80%; /* Keeps the message container more compact */
+    max-width: 600px; /* Limit the maximum width */
+    padding: 0 20px; /* Adds slight padding */
+    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+}
+
+/* Message styles */
+#customMessage {
+    font-size: 24px; /* Adjusts the font size for clarity */
+    font-weight: bold;
+    color: black; /* Change text color to black */
+    background-color: transparent; /* Transparent background */
+    padding: 10px 20px;
+    white-space: nowrap; /* Prevents message from breaking into multiple lines */
+    overflow: hidden; /* Ensures only one line of text shows at a time during animation */
+    border-right: 3px solid black; /* Cursor effect */
+    width: 0; /* Initial width for animation */
+    animation: typing 3s steps(40) 1s forwards, blink-caret 0.75s step-end infinite; /* Typing animation */
+}
+
+/* Typing animation */
+@keyframes typing {
+    100% {
+        width: 100%; /* Expand to full width */
+    }
+}
+
+/* Blinking cursor animation */
+@keyframes blink-caret {
+    50% {
+        border-color: transparent; /* Hides the cursor halfway through animation */
+    }
+}
