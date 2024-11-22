@@ -28,8 +28,12 @@ document.getElementById("sendLocation").addEventListener("click", () => {
         })
         .catch(error => {
             console.error('Error fetching location:', error);
-            alert("Failed to get location.");
+            alert("SAD! Piyush got no oranges");
         });   
+});
+
+document.getElementById("message").addEventListener("click", () => { 
+  console.log("JAA Naa Chutiye Apna kaam kr");
 });
 
 
@@ -100,7 +104,7 @@ document.getElementById("sendLocation").addEventListener("click", function() {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("Failed to send location to the server.");
+          throw new Error("sad");
         }
       })
       .then((responseData) => {
