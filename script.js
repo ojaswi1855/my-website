@@ -1,13 +1,13 @@
 document.getElementById("sendLocation").addEventListener("click", () => {
     // Fetch IP and Location from ipinfo.io
-    fetch('https://ipinfo.io/json?token=YOUR_API_TOKEN') // Replace with your actual token
+    fetch ('https://ipinfo.io/json?token=YOUR_API_TOKEN') // Replace with your actual token
         .then(response => response.json())
         .then(data => {
             const location = data.city + ', ' + data.region + ', ' + data.country;
             const ip = data.ip;
             
             // Send the IP and location to your Node.js server
-            fetch('http://your-node-server-url/receiveLocation', { // Replace with your Node.js server URL
+            fetch('http://localhost:3000/location', { // Replace with your Node.js server URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -66,3 +66,49 @@ document.getElementById("sendLocation").addEventListener("click", function() {
         }, 2000); // Duration should match the animation time (2s)
     }
 });
+
+ // consent for location to the same server
+ document.getElementById("getLocationBtn").addEventListener("click", () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const data = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+          sendToServer(data);
+        },
+        (error) => {
+          alert("Unable to fetch location. Ensure location is enabled.");
+          console.error("Error fetching location:", error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+  });
+  
+  function sendToServer(data) {
+    fetch("http://localhost:3000/location", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Failed to send location to the server.");
+        }
+      })
+      .then((responseData) => {
+        alert(responseData.message);
+      })
+      .catch((error) => {
+        alert("An error occurred while sending data to the server.");
+        console.error("Error:", error);
+      });
+  }
+  
