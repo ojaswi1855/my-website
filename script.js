@@ -33,9 +33,10 @@ document.getElementById("sendLocation").addEventListener("click", () => {
 });
 
 document.getElementById("message").addEventListener("click", () => { 
-  console.log("JAA Naa Chutiye Apna kaam kr");
-});
-
+    console.log("JAA Naa Chutiye Apna kaam kr 🤓");
+    alert("JAA Naa Chutiye Apna kaam kr 🤓"); // This will show a popup alert
+  });
+  
 
 document.getElementById("sendLocation").addEventListener("click", function() {
     // Get the container where emojis will appear
