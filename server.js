@@ -53,11 +53,6 @@ app.post('/location', async (req, res) => {
   }
 });
 
-// Serve frontend assets (HTML, CSS, JS) when not in development mode
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'public')));
-}
-
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
