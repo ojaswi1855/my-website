@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB connection
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://your-connection-string-here';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://ojaswiprakash1855:7k7iabQuYNDcXm_@cluster0.uye27.mongodb.net/myDatabase?retryWrites=true&w=majority';
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
