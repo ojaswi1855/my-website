@@ -53,8 +53,13 @@ app.post('/location', async (req, res) => {
   }
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000;
+// Serve frontend assets (HTML, CSS, JS) when not in development mode
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'public')));
+}
+
+// Start the server and bind it to the correct port
+const PORT = process.env.PORT || 3000; // This will use the dynamic port on Render or fall back to 3000 for local development
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
