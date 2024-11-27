@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const path = require('path');
 
 const app = express();
 
@@ -26,7 +27,10 @@ const locationSchema = new mongoose.Schema({
 
 const Location = mongoose.model('Location', locationSchema);
 
-// Root route to ensure the server is running
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Root route to ensure the server is working
 app.get('/', (req, res) => {
   res.send('Hello, world! Server is working fine.');
 });
@@ -49,7 +53,13 @@ app.post('/location', async (req, res) => {
   }
 });
 
+// Serve frontend assets (HTML, CSS, JS) when not in development mode
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'public')));
+}
+
 // Start the server
-app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
