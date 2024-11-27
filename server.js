@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const path = require('path');
 
 const app = express();
 
@@ -21,13 +22,16 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 const locationSchema = new mongoose.Schema({
   latitude: Number,
   longitude: Number,
-  ipAddress: String, // Field to store IP address
+  ipAddress: String,
   timestamp: { type: Date, default: Date.now },
 });
 
 const Location = mongoose.model('Location', locationSchema);
 
-// Root route to ensure the server is running
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Root route to ensure the server is working
 app.get('/', (req, res) => {
   res.send('Hello, world! Server is working fine.');
 });
@@ -43,25 +47,20 @@ app.post('/location', async (req, res) => {
     const location = new Location({ latitude, longitude, ipAddress });
     await location.save();
 
-    res.status(200).send('Location saved');
+    res.status(200).json({ message: 'Location saved successfully!' });
   } catch (error) {
     console.error('Error saving location:', error);
     res.status(500).send('Error saving location');
   }
 });
 
-// Route to fetch all saved locations (GET request)
-app.get('/locations', async (req, res) => {
-  try {
-    const locations = await Location.find();  // Retrieve all saved locations
-    res.json(locations);  // Send the locations as a JSON response
-  } catch (error) {
-    console.error('Error retrieving locations:', error);
-    res.status(500).send('Error retrieving locations');
-  }
-});
+// Serve frontend assets (HTML, CSS, JS) when not in development mode
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'public')));
+}
 
-// Start the server
-app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+// Start the server and bind it to the correct port
+const PORT = process.env.PORT || 3000; // This will use the dynamic port on Render or fall back to 3000 for local development
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
