@@ -23,7 +23,7 @@ document.getElementById("getLocationBtn").addEventListener("click", () => {
 
 // Function to send location data to the server
 function sendToServer(data) {
-    fetch("http://localhost:3000/location", {
+    fetch("https://your-render-backend-url.onrender.com/location", {  // Replace with your actual Render URL
         method: "POST",
         headers: {
             "Content-Type": "application/json",
